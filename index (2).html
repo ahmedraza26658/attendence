@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <title>Gulshan Firdous - Registration</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f0f4f8; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        /* Background Logo */
+        .bg-logo { position: absolute; width: 400px; height: 400px; border: 40px solid rgba(0, 51, 153, 0.05); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 150px; color: rgba(0, 51, 153, 0.05); font-weight: bold; z-index: -1; }
+        
+        .container { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 380px; text-align: center; border-top: 8px solid #003399; }
+        h1 { color: #003399; margin-bottom: 5px; font-size: 24px; }
+        p.sub { color: #666; margin-bottom: 25px; font-size: 14px; }
+        
+        input { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; }
+        label { display: block; text-align: left; font-size: 13px; color: #003399; font-weight: bold; margin-top: 10px; }
+        
+        button { width: 100%; padding: 14px; background: #003399; color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; transition: 0.3s; margin-top: 15px; }
+        button:hover { background: #002266; transform: translateY(-2px); }
+        .link { margin-top: 20px; display: block; color: #003399; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="bg-logo">GF</div>
+    <div class="container">
+        <h1>Gulshan Firdous</h1>
+        <p class="sub">Mulazmeen Registration Form</p>
+        
+        <input type="text" id="regName" placeholder="Pura Naam">
+        <input type="text" id="regID" placeholder="Employee ID">
+        <input type="password" id="regPass" placeholder="Password">
+        
+        <label>Rozana ki Duty (Ghante):</label>
+        <input type="number" id="dutyHours" placeholder="Maslan: 8" min="1">
+        
+        <button onclick="registerUser()">Account Banayein</button>
+        <p id="msg"></p>
+        <a href="attendance.html" class="link">Hazari lagane ke liye yahan click karen</a>
+    </div>
+
+    <script>
+        function registerUser() {
+            let name = document.getElementById('regName').value;
+            let id = document.getElementById('regID').value;
+            let pass = document.getElementById('regPass').value;
+            let duty = document.getElementById('dutyHours').value;
+
+            if(name && id && pass && duty) {
+                let user = { name: name, id: id, pass: pass, dutyHours: parseFloat(duty), totalHours: 0, extraTime: 0 };
+                localStorage.setItem(id, JSON.stringify(user));
+                document.getElementById('msg').innerHTML = "Mubarak ho! Account ban gaya.";
+                document.getElementById('msg').style.color = "green";
+            } else { alert("Meherbani karke tamam maloomat darj karen."); }
+        }
+    </script>
+</body>
+</html>
+
+

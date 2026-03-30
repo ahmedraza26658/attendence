@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <title>GF Admin Panel</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; padding: 30px; }
+        .bg-logo { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 300px; color: rgba(0, 51, 153, 0.03); font-weight: bold; z-index: -1; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 900px; margin: auto; border-top: 8px solid #003399; }
+        h1 { color: #003399; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background: #003399; color: white; padding: 15px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        tr:hover { background: #f9f9f9; }
+        .badge { padding: 5px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; background: #eef2f7; color: #003399; }
+    </style>
+</head>
+<body>
+    <div class="bg-logo">GF</div>
+    <div class="card">
+        <h1>Gulshan Firdous - Admin Panel</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>ID</th>
+                    <th>Duty Hours</th>
+                    <th>Aaj ka Kaam</th>
+                    <th>Ijara (Extra)</th>
+                </tr>
+            </thead>
+            <tbody id="adminTable"></tbody>
+        </table>
+    </div>
+
+    <script>
+        function loadData() {
+            let table = document.getElementById('adminTable');
+            table.innerHTML = "";
+            for (let i = 0; i < localStorage.length; i++) {
+                let userData = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                if(userData.name) {
+                    table.innerHTML += `<tr>
+                        <td>${userData.name}</td>
+                        <td><span class="badge">${userData.id}</span></td>
+                        <td>${userData.dutyHours}h</td>
+                        <td>${userData.totalHours || 0}h</td>
+                        <td style="color:blue; font-weight:bold;">${userData.extraTime || 0}h</td>
+                    </tr>`;
+                }
+            }
+        }
+        window.onload = loadData;
+    </script>
+</body>
+</html>
+
