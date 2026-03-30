@@ -5,76 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulshan Firdous - Registration</title>
     <style>
-        :root { --primary: #003399; --bg: #f4f7f6; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        
-        /* Transparent Logo Background */
-        .bg-overlay { position: fixed; font-size: 15vw; font-weight: 900; color: rgba(0, 51, 153, 0.04); z-index: -1; user-select: none; text-align: center; width: 100%; }
-        
-        .card { background: #fff; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; border-top: 10px solid var(--primary); position: relative; }
-        h1 { color: var(--primary); margin: 0; font-size: 26px; text-transform: uppercase; }
-        p { color: #666; margin-bottom: 30px; font-size: 14px; }
-        
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f4f8; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .bg-watermark { position: fixed; font-size: 12vw; font-weight: 900; color: rgba(0, 51, 153, 0.05); z-index: -1; text-align: center; width: 100%; pointer-events: none; }
+        .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 380px; text-align: center; border-top: 10px solid #003399; position: relative; }
+        h1 { color: #003399; margin: 0; font-size: 28px; }
+        p { color: #666; margin-bottom: 30px; font-weight: 500; }
         .input-group { text-align: left; margin-bottom: 15px; }
-        label { display: block; font-weight: 600; font-size: 13px; color: var(--primary); margin-bottom: 5px; }
-        input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-size: 15px; transition: 0.3s; }
-        input:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 5px rgba(0,51,153,0.2); }
-        
-        button { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        label { display: block; font-size: 13px; color: #003399; font-weight: bold; margin-bottom: 5px; }
+        input { width: 100%; padding: 12px; border: 1.5px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 15px; }
+        button { width: 100%; padding: 15px; background: #003399; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
         button:hover { background: #002266; transform: translateY(-2px); }
-        
-        .footer-link { margin-top: 25px; display: block; color: var(--primary); text-decoration: none; font-size: 14px; font-weight: 500; }
-        #msg { margin-top: 15px; font-weight: bold; font-size: 14px; }
+        .footer-link { margin-top: 25px; display: block; color: #003399; text-decoration: none; font-size: 14px; font-weight: 600; }
     </style>
 </head>
 <body>
-
-    <div class="bg-overlay">GULSHAN FIRDOUS</div>
-
+    <div class="bg-watermark">GULSHAN FIRDOUS</div>
     <div class="card">
         <h1>Gulshan Firdous</h1>
         <p>Employees Registration Panel</p>
-        
         <div class="input-group">
-            <label>Pura Naam:</label>
+            <label>Employee Name:</label>
             <input type="text" id="regName" placeholder="Enter Full Name">
         </div>
-
         <div class="input-group">
             <label>Employee ID:</label>
-            <input type="text" id="regID" placeholder="Unique ID">
+            <input type="text" id="regID" placeholder="Assign Unique ID">
         </div>
-
         <div class="input-group">
             <label>Daily Duty (Hours):</label>
             <input type="number" id="dutyHours" placeholder="e.g. 8" min="1">
         </div>
-
-        <button onclick="registerUser()">Account Banayein</button>
-        <p id="msg"></p>
-
-        <a href="attendance.html" class="footer-link">Go to Attendence Page →</a>
+        <button onclick="registerUser()">Create Account</button>
+        <p id="msg" style="margin-top:15px;"></p>
+        <!-- Spelling Update: attendence -->
+        <a href="attendence.html" class="footer-link">Go to Attendance Dashboard →</a>
     </div>
-
     <script>
         function registerUser() {
             let name = document.getElementById('regName').value;
             let id = document.getElementById('regID').value;
             let duty = document.getElementById('dutyHours').value;
-
             if(name && id && duty) {
                 let user = { name: name, id: id, dutyHours: parseFloat(duty) };
                 localStorage.setItem(id, JSON.stringify(user));
-                document.getElementById('msg').innerText = "✅ Registration Successful!";
+                document.getElementById('msg').innerText = "✅ Account Created Successfully!";
                 document.getElementById('msg').style.color = "green";
-            } else {
-                alert("Please fill all fields!");
-            }
+            } else { alert("Please fill all fields!"); }
         }
     </script>
-
 </body>
 </html>
-
-
-
