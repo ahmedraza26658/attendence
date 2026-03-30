@@ -8,24 +8,17 @@
         :root { --primary: #003399; --bg: #f4f7f6; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 20px; }
         .bg-watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 15vw; font-weight: 900; color: rgba(0, 51, 153, 0.03); z-index: -1; pointer-events: none; }
-        
         .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 10px solid var(--primary); }
         h1 { color: var(--primary); text-align: center; text-transform: uppercase; letter-spacing: 2px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: white; border-radius: 10px; overflow: hidden; }
-        th { background: var(--primary); color: white; padding: 15px; text-align: left; font-size: 14px; }
-        td { padding: 15px; border-bottom: 1px solid #eee; color: #333; font-size: 15px; }
-        tr:hover { background: #f9f9f9; }
-        
+        table { width: 100%; border-collapse: collapse; margin-top: 30px; background: white; }
+        th { background: var(--primary); color: white; padding: 15px; text-align: left; }
+        td { padding: 15px; border-bottom: 1px solid #eee; }
         .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; background: #eef2f7; color: var(--primary); }
-        .extra { color: #003399; font-weight: bold; }
-        .btn-refresh { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; float: right; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="bg-watermark">GULSHAN FIRDOUS</div>
     <div class="container">
-        <button class="btn-refresh" onclick="location.reload()">Refresh Data</button>
         <h1>Gulshan Firdous - Admin Dashboard</h1>
         <table>
             <thead>
@@ -40,21 +33,19 @@
             <tbody id="tableBody"></tbody>
         </table>
     </div>
-
     <script>
         function loadAdminData() {
             let tbody = document.getElementById('tableBody');
             tbody.innerHTML = "";
             for (let i = 0; i < localStorage.length; i++) {
-                let key = localStorage.key(i);
-                let user = JSON.parse(localStorage.getItem(key));
+                let user = JSON.parse(localStorage.getItem(localStorage.key(i)));
                 if(user && user.name) {
                     tbody.innerHTML += `<tr>
                         <td><b>${user.name}</b></td>
                         <td><span class="badge">${user.id}</span></td>
                         <td>${user.dutyHours}h</td>
                         <td>${user.totalHours || 0}h</td>
-                        <td class="extra">${user.extraTime || 0}h</td>
+                        <td style="color:blue; font-weight:bold;">${user.extraTime || 0}h</td>
                     </tr>`;
                 }
             }
