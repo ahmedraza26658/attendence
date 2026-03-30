@@ -8,19 +8,13 @@
         :root { --primary: #003399; --bg: #f4f7f6; --success: #28a745; --danger: #dc3545; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         .bg-watermark { position: fixed; font-size: 12vw; font-weight: 900; color: rgba(0, 51, 153, 0.05); z-index: -1; text-align: center; width: 100%; pointer-events: none; }
-        
         .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); width: 380px; text-align: center; border-top: 10px solid var(--primary); position: relative; }
         h1 { color: var(--primary); margin: 0; font-size: 24px; text-transform: uppercase; }
-        
-        .timer-display { font-size: 45px; font-weight: bold; color: #333; margin: 25px 0; font-family: 'Courier New', monospace; background: #f8f9fa; padding: 15px; border-radius: 12px; border: 2px solid #eee; }
-        
+        .timer-display { font-size: 45px; font-weight: bold; color: #333; margin: 25px 0; font-family: monospace; background: #f8f9fa; padding: 15px; border-radius: 12px; border: 2px solid #eee; }
         input { width: 100%; padding: 12px; margin-bottom: 20px; border: 1.5px solid #ddd; border-radius: 10px; box-sizing: border-box; font-size: 16px; text-align: center; }
-        
         .btn-group { display: flex; gap: 10px; flex-direction: column; }
-        .btn-in { background: var(--success); color: white; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-out { background: var(--danger); color: white; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        
-        button:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-in { background: var(--success); color: white; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
+        .btn-out { background: var(--danger); color: white; padding: 15px; border: none; border-radius: 10px; font-size: 18px; font-weight: bold; cursor: pointer; }
         .report { background: #eef2f7; padding: 15px; border-radius: 10px; margin-top: 25px; text-align: left; font-size: 14px; color: var(--primary); }
     </style>
 </head>
@@ -29,24 +23,19 @@
     <div class="card">
         <h1>Gulshan Firdous</h1>
         <p style="color:#666; margin-bottom:20px;">Employees Attendance Panel</p>
-        
         <input type="text" id="loginID" placeholder="Enter Your Employee ID">
-        
         <div class="timer-display" id="display">00:00:00</div>
-        
         <div class="btn-group">
             <button class="btn-in" onclick="startWork()">CHECK-IN (Aamad)</button>
             <button class="btn-out" onclick="stopWork()">CHECK-OUT (Rakhsat)</button>
         </div>
-        
         <div class="report">
             <b>Today's Summary:</b><br>
-            Working Hours: <span id="todayTime" style="font-weight:bold;">0h</span><br>
+            Work Done: <span id="todayTime" style="font-weight:bold;">0h</span><br>
             Extra Time (Ijara): <span id="extraTime" style="color:blue; font-weight:bold;">0h</span>
         </div>
         <p id="statusMsg" style="margin-top:10px; font-weight:bold;"></p>
     </div>
-
     <script>
         let startTime, timerInterval;
         function startWork() {
@@ -54,32 +43,27 @@
             if(!localStorage.getItem(id)) { alert("ID Not Found! Please register first."); return; }
             startTime = new Date();
             document.getElementById('statusMsg').innerText = "✅ Session Started...";
-            document.getElementById('statusMsg').style.color = "green";
             timerInterval = setInterval(() => {
                 let diff = new Date(new Date() - startTime);
                 document.getElementById('display').innerText = diff.getUTCHours().toString().padStart(2, '0') + ":" + diff.getUTCMinutes().toString().padStart(2, '0') + ":" + diff.getUTCSeconds().toString().padStart(2, '0');
             }, 1000);
         }
-
         function stopWork() {
             clearInterval(timerInterval);
             let id = document.getElementById('loginID').value;
             let userData = JSON.parse(localStorage.getItem(id));
             let totalHours = ((new Date() - startTime) / (1000 * 60 * 60)).toFixed(2);
             let extra = totalHours > userData.dutyHours ? (totalHours - userData.dutyHours).toFixed(2) : 0;
-            
             document.getElementById('todayTime').innerText = totalHours + " Hours";
             document.getElementById('extraTime').innerText = extra + " Hours";
-            
-            userData.totalHours = totalHours;
-            userData.extraTime = extra;
+            userData.totalHours = totalHours; userData.extraTime = extra;
             localStorage.setItem(id, JSON.stringify(userData));
             document.getElementById('statusMsg').innerText = "🔴 Check-out Complete!";
-            document.getElementById('statusMsg').style.color = "red";
         }
     </script>
 </body>
 </html>
+
 
 
 
